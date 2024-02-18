@@ -1,0 +1,30 @@
+---
+# handlers file for inspircd
+- name: Restart inspircd
+  debug: msg="Restarting inspircd..."
+  changed_when: True
+  notify:
+    - Check if inspircd is running
+    - Stop inspircd if running
+    - Start inspircd
+    - Test irc connection
+
+- name: Check if inspircd is running
+  shell: netstat -nplt | grep inspircd
+  register: cmd
+  changed_when: "inspircd in cmd.stdout"
+
+- name: Stop inspircd if running
+  command: "/etc/init.d/inspircd stop"
+  when: "inspircd in cmd.stdout"
+
+- name: Start inspircd
+  command: "/etc/init.d/inspircd start"
+
+- name: Test irc connection
+  irc:
+    server: localhost
+    port: "{{ inspircd_bind_port }}"
+    channel: "#does_not_exist"
+    nick: "ansible_test"
+    msg: "Testing..."

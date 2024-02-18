@@ -1,0 +1,15 @@
+---
+# tasks file for inspircd
+- name: Include OS-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Define irc packages
+  set_fact:
+    irc_packages: "{{ __irc_packages | list }}"
+  when: irc_packages is not defined
+
+- name: Install irc packages
+  include_tasks: "setup-{{ ansible_os_family }}.yml"
+
+- name: Configure irc
+  include_tasks: "configure-{{ ansible_os_family }}.yml"

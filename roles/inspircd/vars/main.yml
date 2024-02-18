@@ -1,0 +1,15 @@
+---
+# vars file for inspircd
+inspircd_admin_real_name: "1RC 4DM1N"
+inspircd_admin_nick: "4DM1N"
+inspircd_admin_email: "admin@domain.com"
+
+inspircd_bind_address: "*"
+inspircd_bind_port: "6667"
+
+inspircd_power_die_password: "password"
+inspircd_power_restart_password: "password"
+
+inspircd_motd: "-- Welcome! --"
+
+inspircd_operator_password: "password"
