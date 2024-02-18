@@ -2,9 +2,7 @@
 - name: Update apt cache
   apt: update_cache=yes cache_valid_time=3600
   become: true
-  become_user: "{{ inspircd_user }}"
 
-- name: Ensure InspIRCd is installed on debian
+- name: Ensure irc packages are installed on debian
   apt: "name={{ irc_packages }} state={{ irc_packages_state }}"
   become: true
-  become_user: "{{ inspircd_user }}"
