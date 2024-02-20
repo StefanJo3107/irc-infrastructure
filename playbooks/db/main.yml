@@ -1,0 +1,20 @@
+---
+- hosts: badusb_db
+  become: yes
+
+  vars_files:
+    - vars.yml
+
+  pre_tasks:
+    - name: Define dynamic mysql variables
+      set_fact:
+        mysql_users:
+          - name: badusb_irc
+            host: "{{ groups['badusb_irc'][0] }}"
+            password: password
+            priv: "*.*:SELECT"
+        mysql_replication_master: "{{ groups['master_badusb_db'][0] }}"
+  
+  roles:
+    - geerlingguy.firewall
+    - geerlingguy.mysql

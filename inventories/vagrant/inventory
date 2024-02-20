@@ -1,0 +1,9 @@
+[badusb_irc]
+192.168.60.4
+
+[badusb_db]
+192.168.60.5 mysql_replication_role=master
+192.168.60.6 mysql_replication_role=master
+
+[master_badusb_db]
+192.168.60.5

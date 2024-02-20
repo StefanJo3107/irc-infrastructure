@@ -1,0 +1,13 @@
+---
+firewall_allowed_tcp_ports:
+  - "22"
+  - "3306"
+
+mysql_replication_user:
+  name: replication
+  password: password
+
+mysql_databases:
+  - name: badusb_irc_db
+    collation: utf8_general_ci
+    encoding: utf8

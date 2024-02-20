@@ -17,9 +17,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     app.vm.network :private_network, ip: "192.168.60.4"
   end
 
-  config.vm.define "db" do |app|
-    app.vm.hostname = "badusb-db.test"
+  config.vm.define "db1" do |app|
+    app.vm.hostname = "badusb-db1.test"
     app.vm.network :private_network, ip: "192.168.60.5"
+  end
+
+  config.vm.define "db2" do |app|
+    app.vm.hostname = "badusb-db2.test"
+    app.vm.network :private_network, ip: "192.168.60.6"
   end
 
   config.vm.provision "ansible" do |ansible|
