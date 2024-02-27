@@ -1,0 +1,56 @@
+---
+- name: Copy ircd.yaml
+  template:
+      src: ircd.yaml.j2
+      dest: "{{ ergo_install_dir }}/ircd.yaml"
+      force: yes
+      backup: yes
+
+- name: Copy ergo.motd
+  copy:
+      src: "{{ ergo_motd_path | mandatory }}"
+      dest: "{{ ergo_install_dir }}/ergo.motd"
+      force: yes
+      backup: yes
+
+- name: Generate certificates
+  become: yes
+  shell:
+      cmd: ./ergo mkcerts
+      chdir: "{{ ergo_install_dir }}"
+
+- name: Create startup script
+  become: yes
+  copy:
+      src: ./ergo_startup.sh
+      dest: "{{ ergo_install_dir }}/ergo_startup.sh"
+      force: yes
+      backup: yes
+
+- name: Add +x permission to startup script
+  become: yes
+  file:
+      dest: "{{ ergo_install_dir }}/ergo_startup.sh"
+      mode: a+x
+
+- name: Add ergo service
+  become: yes
+  template:
+      src: ergo.service.j2
+      dest: "{{ ergo_install_dir }}/ergo.service"
+      force: yes
+      backup: yes
+
+- name: Create symbolic link for ergo service
+  become: yes
+  file:
+      src: "{{ ergo_install_dir }}/ergo.service"
+      dest: /etc/systemd/system/ergo.service
+      state: link
+
+- name: Start ergo service
+  become: yes
+  service:
+      name: ergo
+      enabled: yes
+      state: started

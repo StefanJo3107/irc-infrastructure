@@ -1,0 +1,27 @@
+---
+# defaults file for ergo
+ergo_install_dir: "/usr/local/src/ergo"
+ergo_github_releases_api: "https://api.github.com/repos/ergochat/ergo/releases/latest"
+ergo_install_arch: "'linux-x86_64'"  
+
+ergo_text_port: 6667
+ergo_tls_port: 6697
+
+ergo_log_level: 'info'
+ergo_registration_enabled: true
+ergo_max_concurrent_conns: 32
+ergo_suppress_lusers: false
+
+ergo_history_enabled: true
+ergo_history_autoresize_window: 7d
+ergo_history_autoreplay_on_join: 100
+
+ergo_email_verification_enabled: false
+ergo_email_verification_blacklist_regexes: []
+
+ergo_mysql_enabled: false
+
+#server
+ergo_server_password: '$2a$04$6l6lZijBYJta.N1O/dB1ve3lnTpjRHP4zijqXTw4Vf8rEEvaeSpMi'
+#admin
+ergo_admin_password: '$2a$04$w9.CPmz/qltTZOsYWvhl2.5.yQxVZpZU1p0DEDkzMx0zOOEJBFAsy'

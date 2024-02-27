@@ -1,0 +1,15 @@
+[Unit]
+Description=Ergo IRC server
+After=network.target
+
+[Service]
+Type=simple
+User=vagrant
+WorkingDirectory={{ ergo_install_dir }}
+ExecStart={{ ergo_install_dir }}/ergo_startup.sh
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target

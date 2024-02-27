@@ -1,0 +1,29 @@
+---
+- name: Check for latest version of ergo
+  uri:
+    url: "{{ ergo_github_releases_api }}" 
+    return_content: true
+  register: ergo_latest
+
+- name: Clear install directory
+  file:
+    path: "{{ ergo_install_dir }}"
+    state: absent
+
+- name: Create install directory
+  file:
+    path: "{{ ergo_install_dir }}"
+    state: directory
+
+- name: "Install ergo {{ ergo_latest.json.tag_name }}"
+  loop: "{{ ergo_latest.json.assets }}"
+  when: "{{ ergo_install_arch }} in item.name"
+  unarchive:
+    remote_src: yes
+    src: "{{ item.browser_download_url }}"
+    dest: "{{ ergo_install_dir }}"
+    keep_newer: yes
+    extra_opts:
+    - --strip=1
+    - --no-anchored
+    - ergo

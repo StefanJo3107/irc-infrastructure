@@ -1,0 +1,17 @@
+---
+firewall_allowed_tcp_ports:
+  - "22"
+  - "6667"
+  - "6697"
+
+ergo_network_name: 'BadusbNetwork'
+ergo_server_name: 'badusb.test.org'
+ergo_motd_path: 'ergo.motd'
+
+ergo_history_persistent: true
+ergo_mysql_enabled: true
+ergo_mysql_host: "192.168.60.5"
+ergo_mysql_port: 3306
+ergo_mysql_user: "badusb_irc"
+ergo_mysql_password: "password"
+ergo_mysql_dbname: "badusb_irc_db"

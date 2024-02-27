@@ -2,3 +2,4 @@
 # defaults file for inspircd
 irc_packages_state: present
 inspircd_user: "irc"
+inspircd_conf_dir: "/etc/inspircd"

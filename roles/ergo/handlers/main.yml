@@ -1,0 +1,6 @@
+---
+# handlers file for ergo
+- name: Restart inspircd
+  changed_when: True
+  become: True
+  command: killall -HUP ergo

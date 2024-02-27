@@ -1,0 +1,6 @@
+---
+- name: Install irc packages
+  include_tasks: "install.yml"
+
+- name: Configure irc
+  include_tasks: "configure.yml"

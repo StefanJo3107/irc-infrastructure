@@ -9,26 +9,32 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.provider :libvirt do |libvirt|
     libvirt.driver = "qemu"
-    libvirt.memory = 256
+    libvirt.memory = 2048
   end
 
   config.vm.define "irc" do |irc|
-    app.vm.hostname = "badusb-irc.test"
-    app.vm.network :private_network, ip: "192.168.60.4"
+    irc.vm.hostname = "badusb-irc.test"
+    irc.vm.network :private_network, ip: "192.168.60.4"
+    irc.vm.provision "ansible" do |ansible|
+      ansible.verbose = "v"
+      ansible.playbook = "configure.yml"
+      ansible.inventory_path = "inventories/vagrant/inventory"
+      ansible.compatibility_mode = "2.0"
+      ansible.limit = "all"
+      ansible.extra_vars = {
+        ansible_user: "vagrant",
+        ansible_ssh_private_key_file: "../../vagrant/insecure_private_key"
+      }
+    end
   end
 
-  config.vm.define "db1" do |app|
-    app.vm.hostname = "badusb-db1.test"
-    app.vm.network :private_network, ip: "192.168.60.5"
+  config.vm.define "db1" do |db|
+    db.vm.hostname = "badusb-db1.test"
+    db.vm.network :private_network, ip: "192.168.60.5"
   end
 
-  config.vm.define "db2" do |app|
-    app.vm.hostname = "badusb-db2.test"
-    app.vm.network :private_network, ip: "192.168.60.6"
-  end
-
-  config.vm.provision "ansible" do |ansible|
-    ansible.verbose = "v"
-    ansible.playbook = "configure.yml"
+  config.vm.define "db2" do |db|
+    db.vm.hostname = "badusb-db2.test"
+    db.vm.network :private_network, ip: "192.168.60.6"
   end
 end
