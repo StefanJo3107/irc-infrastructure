@@ -1,0 +1,36 @@
+---
+- hosts: payload_server
+  become: yes
+
+  vars_files:
+      - vars.yml
+
+  roles:
+      - geerlingguy.firewall
+      - geerlingguy.apache
+
+  tasks:
+      - name: Copy httpd content
+        template:
+            src: templates/httpd.conf.j2
+            dest: /etc/apache2/apache2.conf
+
+      - name: Remove the Apache test page.
+        file:
+            path: /var/www/html/index.html
+            state: absent
+
+      - name: Copy our home page.
+        template:
+            src: templates/index.html
+            dest: /var/www/html/index.html
+
+      - name: Copy payloads from local dir.
+        copy:
+            src: "{{ payload_dir }}"
+            dest: /var/www/payloads
+
+      - name: Restart apache2 service
+        service:
+            name: apache2
+            state: restarted

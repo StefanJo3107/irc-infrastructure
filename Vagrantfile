@@ -15,6 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "irc" do |irc|
     irc.vm.hostname = "badusb-irc.test"
     irc.vm.network :private_network, ip: "192.168.60.4"
+    irc.vm.network "forwarded_port", guest: 6697, host: 6697
+    irc.vm.network "forwarded_port", guest: 6667, host: 6667
     irc.vm.provision "ansible" do |ansible|
       ansible.verbose = "v"
       ansible.playbook = "configure.yml"
@@ -36,5 +38,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "db2" do |db|
     db.vm.hostname = "badusb-db2.test"
     db.vm.network :private_network, ip: "192.168.60.6"
+  end
+
+  config.vm.define "payload_server" do |ps|
+    ps.vm.hostname = "badusb-payload.test"
+    ps.vm.network :private_network, ip: "192.168.60.7"
+    ps.vm.network "forwarded_port", guest: 80, host: 3000
   end
 end

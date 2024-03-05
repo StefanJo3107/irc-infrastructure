@@ -7,3 +7,6 @@
 
 [master_badusb_db]
 192.168.60.5
+
+[payload_server]
+192.168.60.7

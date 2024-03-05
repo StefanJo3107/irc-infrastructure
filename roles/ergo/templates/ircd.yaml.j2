@@ -10,7 +10,7 @@ server:
 
     # addresses to listen on
     listeners:
-        "127.0.0.1:{{ ergo_text_port }}":
+        ":{{ ergo_text_port }}":
         ":{{ ergo_tls_port }}":
             tls:
                 cert: fullchain.pem

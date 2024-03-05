@@ -1,3 +1,4 @@
 ---
 - import_playbook: playbooks/db/main.yml
 - import_playbook: playbooks/irc-server/main.yml
+- import_playbook: playbooks/payload-server/main.yml
